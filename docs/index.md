@@ -19,18 +19,17 @@ Imports should be grouped and sorted, but closely related imports (e.g. a framew
 * Third-party modules (including extensions to Apple frameworks):
 - CombineExt(placed right after Combine)
 - Other libraries (e.g. Alamofire, Kingfisher)
-* Project-internal modules (e.g., AuthService, SomeCore):
 - Core modules first (Base, BaseUI, Shared)
-- Feature modules (AuthService, SomeCore)
+- Project-internal and feature modules (AuthService, SomeCore)
 - Specific imports (import enum SomeViews.SomeViewAction)
 
 ```swift
 import Foundation
 import SwiftUI
-import Base
-import BaseUI
 import Combine
 import CombineExt
+import Base
+import BaseUI
 import Shared
 import AppError
 import AuthService
