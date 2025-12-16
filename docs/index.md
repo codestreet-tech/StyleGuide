@@ -638,73 +638,74 @@ With the exception of tuple destructuring, every `let` or `var` statement (wheth
     ```
 
 ### Enum Naming
-The naming convention for enums depends on their role. The primary rule is to use singular names for enums that define a type, but plural names are acceptable when an enum is used as a namespace.
-**The Main Rule: Singular for Types**
-When an enum is used to define a type with distinct states or values, its name must be singular.
+Enum naming depends on its role in the codebase.
 
-Think of it this way: the type is Direction, and a variable of that type can hold one of its values, such as .north. We don't write let myDirection: Directions.
+Some enums are explicitly treated as collections or namespaces and must always use plural names.
+All other enums are named according to their semantic meaning.
+
+Always Plural Enums (Explicit Rule)
+
+The following enums must always be named in plural, regardless of the number of cases:
+
+enum CodingKeys
+enum SomeNameStorageKeys
+enum Constants {
+    enum Images { ... }
+    enum Strings { ... }
+    ...
+}
+enum GlobalConstants
+enum SomeNameViewActions
+enum AnalyticsEvents
+enum SomeNameCoordinatorSteps
+
+#### Context-Based Naming (All Other Enums)
+
+All enums not listed above are named based on what they represent.
+
+Singular — Enums as Types
+
+If an enum represents one value or state, it must be singular.
 
 !!! success "Збс"
     ```swift
-    // An enum as a type representing one state out of several.
-    public enum Status {
+    enum Status {
         case achieved
         case current
         case unavailable
     }
-    ```
-!!! danger "Хуїта"
-    ```swift
-    // Avoid plural names for type names.
-    enum NetworkStates { ... }
     
-    enum PaymentMethods { ... }
-    ```
-The Exception: Plural for Namespaces
-
-When a caseless enum is used as a namespace to group static constants, a plural name is appropriate and often preferred because it describes the group or collection of items stored within.
-
-If the enum has more than three cases, treat it as a collection and use a plural name (ending with s).
-This improves readability and signals that the enum represents a group of values rather than a single type.
-
-!!! success "Збс"
-    ```swift
-    enum Constants {
+    enum Direction {
+        case north
+        case south
+        case east
+        case west
+    }
     
-        enum Images: String, ImageKey {
-            case box
-            case congratulation
-            case coinsSpecial
-            case userPhotoPlaceholder
-            
-            var bundle: Bundle? { .module }
-        }
-    
-        enum Strings {
-            
-            enum Levels: String, LevelsLocalizedKey {
-                case title = "levels.title"
-                case subtitle = "levels.subtitle"
-                case level = "levels.level"
-                case coinsTitle = "levels.coins_text"
-                case rewardsTitle = "levels.rewards_title"
-                case statusDescription = "levels.status_description"
-                case rewardDescription = "levels.reward_description"
-                case coinsDescription = "levels.coins_description"
-            }
-        }
-    ```
-
-!!! danger "Хуїта"
-    ```swift
-    // Too many cases, but still singular — harder to read
-    enum Image { 
+    enum Image {
         case box
         case congratulation
         case coinsSpecial
         case userPhotoPlaceholder
     }
-```
+    ```
+
+❌ Avoid Incorrect Pluralization
+enum NetworkStates { ... }
+enum PaymentMethods { ... }
+
+These enums describe a single state or method, not a collection.
+
+Explicitly Removed Rule
+
+❌ The number of cases does not affect naming
+
+Pluralization is never based on:
+- the size of the enum
+- the number of cases
+- perceived “complexity”
+
+Only the enum’s role matters.
     
 ### Enum Cases
 
