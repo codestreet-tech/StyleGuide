@@ -57,7 +57,23 @@ The required order is as follows:
 
 * Type Aliases and Nested Types: typealias, nested enum, struct, class.
 
-* Properties: Stored and computed properties, grouped by access level (e.g., public, internal, private). Static properties come before non-static inside the current block. Constants (let) should precede variables (var).
+* Properties: Stored and computed properties, grouped by access level (e.g., public, internal, private). Static properties come before non-static inside the current block. Constants (let) should precede variables (var) inside access level block.
+
+```swift
+public static let
+let
+static var
+var
+
+internal static let
+let
+static var
+var
+
+fileprivate...
+
+private...
+```
 
 * Initializers: All init methods, including required and convenience initializers.
 
@@ -70,9 +86,10 @@ public struct ProfileProgressView: View {
     typealias Action = () -> Void
     
     static let count = 1
+    var buttonForegroundStyle: Color = .constant(.white)
+    
     private let progress: Int
     private let action: Action?
-    var buttonForegroundStyle: Color = .constant(.white)
 
     public init(progress: Int, action: Action? = nil) {
         self.progress = progress
