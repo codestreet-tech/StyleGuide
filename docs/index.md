@@ -1430,33 +1430,25 @@ Use map when your transformation function returns a non-optional value. Use flat
     }
     let optionalInt = Int(string)
     ```
-    
+
 ### Acronyms and Initialisms
 
-Names containing common acronyms and initialisms (such as URL, ID, API, or HTTP) should treat the acronym as a single word, keeping it fully capitalized. This applies to both UpperCamelCase type names and lowerCamelCase variable names. Avoid using mixed-case variants.
+Names containing common acronyms and initialisms (such as URL, ID, API, or HTTP) should treat the acronym as a regular word. Capitalize only the first letter of the acronym (unless it is the very first word in a lowerCamelCase identifier, in which case it is all lowercase).
 
-This practice improves clarity by treating well-known acronyms as indivisible units, which is how developers mentally read them.
+This practice improves readability by avoiding distinct capitalization rules for different words and preventing ambiguous groupings like XMLHTTPREQUEST (vs XmlHttpRequest).
 
-!!! success "Збс"
-    ```swift
-    var requestURL: URL
-    let userID: Int
-    let htmlContent: String
-    
-    struct APIClient {
-        func downloadHTML() { ... }
-    }
-    ```
-    
-!!! danger "Хуїта"
-    ```swift
-    // Avoid mixed-case or partially-lowercased acronyms.
-    var requestUrl: URL
-    let userId: Int
-    let anHtmlDocument: String
+!!! success "Збс (Good)" 
+    ```swift // Acronyms are normalized: "Url", "Id", "Html", "Api" var requestUrl: URL let userId: Int let htmlContent: String // "html" is lowercase because it starts the variable
     
     struct ApiClient {
         func downloadHtml() { ... }
+    }
+    ```
+!!! danger "Хуїта (Bad)" 
+    ```swift // Avoid fully capitalized acronyms in the middle of names var requestURL: URL let userID: Int let HTMLContent: String
+    
+    struct APIClient {
+        func downloadHTML() { ... }
     }
     ```
 
